@@ -29,7 +29,7 @@ else:
 # Parse each comment in the subreddit stream
 for comment in subreddit.stream.comments():
 
-    if comment.id not in posts_replied_to:
+    if (comment.id not in posts_replied_to) and not(comment.author == 'GreeceCirclejerkBot'):
         # Respond for Ax, ti leei, kalhspera sas comment
         if re.search("Αχ ", comment.body, re.IGNORECASE):
             print(comment.body)
@@ -40,13 +40,33 @@ for comment in subreddit.stream.comments():
                        "η ζωή θα αλλάξει. Εμείς δεν θα υπάρχουμε τότε, αλλά δεν πειράζει. Αρκεί που θα μας σκεφτούν." \
                        " Θα θυμηθούν πως ζήσαμε και εμείς κάποτε."
             comment.reply(ax_reply)
-        elif re.search("τι λεει", comment.body, re.IGNORECASE):
+        elif re.search("τι λεει", comment.body, re.IGNORECASE)or re.search("τι λέει", comment.body, re.IGNORECASE):
             print(comment.body)
             ax_reply = "Γιατί δεν πέφτεις εσύ να πνιγείς;"
             comment.reply(ax_reply)
-        elif re.search("καλησπερα σας", comment.body, re.IGNORECASE):
+        elif re.search("καλησπερα σας", comment.body, re.IGNORECASE) or re.search("καλησπέρα σας", comment.body, re.IGNORECASE):
             print(comment.body)
             ax_reply = "Δύο Jack Daniels, το ένα διπλό."
+            comment.reply(ax_reply)
+        elif re.search("καταλαβα", comment.body, re.IGNORECASE) or re.search("κατάλαβα", comment.body, re.IGNORECASE):
+            print(comment.author)
+            ax_reply = "Σκέψου πρώτα, κατάλαβε και μετά πες δεν καταλαβαίνω!"
+            comment.reply(ax_reply)
+        elif re.search("i5", comment.body, re.IGNORECASE) or re.search("ι5", comment.body, re.IGNORECASE):
+            print(comment.body)
+            ax_reply = "Τι είπες για μένα πουτανίτσα; Θα έπρεπε να ξέρεις ότι βγήκα πρώτος στο ΣΠΕΝ των Ειδικών Δυνάμεων" \
+                       " στον  Έβρο, και έχω κάνει υπηρεσία σκοπός πύλης πάνω από 300 φορές. Είμαι εκπαιδευμένος στην " \
+                       "διευθέτηση κλίνης και είμαι ο τοπ στρατιώτης των Ένοπλων Δυνάμεων της Ελλάδας. Δεν είσαι τίποτα" \
+                       " για μένα παρά μόνο άλλος ένας στόχος. Θα σε διαλύσω με ακρίβεια που δεν έχει ξαναδεί ο πλανήτης " \
+                       "γη, θυμήσου τα λόγια μου. Νομίζεις ότι θα την γλιτώσεις λεγοντάς μου μαλακίες από το ΚΕΠΙΚ; " \
+                       "Ξανασκέψου το. Αυτήν την στιγμή επικοινωνώ με τους Διαβιβαστές του λόχου και έχουμε βρει το IP " \
+                       "σου, γι’αυτό καλύτερα να ετοιμαστείς για τον τυφώνα. Τον τυφώνα που θα εξαλείψει το αξιολύπητο " \
+                       "πράγμα που αποκαλείς ζωή. Είσαι νεκρός μικρέ. Μπορώ να είμαι παντού, πάντα, και μπορώ να σε " \
+                       "σκοτώσω με 700 διαφορετικούς τρόπους, και αυτοί μόνο με το G3A3. Όχι μόνο έχω μάθει όλα τα " \
+                       "παραγγέλματα, άλλα έχω και πρόσβαση σε όλα τα αρχεία του Ελληνικού Στρατού, και θα τα " \
+                       "χρησιμοποιήσω για να σε εξαφανίσω από την χώρα. Αν ήξερες τι επιπτώσεις θα σου έφερνε αυτό το" \
+                       " ‘’έξυπνο’’ σχόλιο, ίσως να το είχες βουλώσει. Αλλά δεν το έκανες και τώρα θα πληρώσεις το " \
+                       "τίμημα. Θα χέσω θυμό πάνω σου και θα πνιγείς μέσα του. Είσαι νεκρός μικρέ."
             comment.reply(ax_reply)
 
         # Store the current id into our list and read file
