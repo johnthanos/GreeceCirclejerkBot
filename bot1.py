@@ -2,7 +2,14 @@ import praw
 import pdb
 import re
 import os
+"""
+Script for bot that reads comments from greececirclejerk subreddit and responds accordingly, the allready parsed 
+comments are saved in the post_replied_to.txt so we dont reply twice to the same post after a diffrent run.
 
+
+"""
+
+# Initialising praw submission object
 reddit = praw.Reddit('bot1')
 
 subreddit = reddit.subreddit('greececirclejerk')
@@ -19,10 +26,11 @@ else:
         posts_replied_to = posts_replied_to.split("\n")
         posts_replied_to = list(filter(None, posts_replied_to))
 
-
+# Parse each comment in the subreddit stream
 for comment in subreddit.stream.comments():
 
     if comment.id not in posts_replied_to:
+        # Respond for Ax, ti leei, kalhspera sas comment
         if re.search("Αχ ", comment.body, re.IGNORECASE):
             print(comment.body)
 
@@ -40,7 +48,8 @@ for comment in subreddit.stream.comments():
             print(comment.body)
             ax_reply = "Δύο Jack Daniels, το ένα διπλό."
             comment.reply(ax_reply)
-        # Store the current id into our list
+
+        # Store the current id into our list and read file
         posts_replied_to.append(comment.id)
         with open("posts_replied_to.txt", "a") as f:
             f.write(comment.id + "\n")
